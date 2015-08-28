@@ -18,7 +18,6 @@
  * Also see Documentation/mutex-design.txt.
  */
 #include <linux/mutex.h>
-#include <linux/ww_mutex.h>
 #include <linux/sched.h>
 #include <linux/sched/rt.h>
 #include <linux/export.h>
