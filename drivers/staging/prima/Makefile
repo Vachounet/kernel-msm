@@ -1,3 +1,5 @@
+EXTRA_CFLAGS += -Wno-discarded-array-qualifiers
+
 MODNAME := wlan
 WLAN_ROOT := drivers/staging/prima
 
