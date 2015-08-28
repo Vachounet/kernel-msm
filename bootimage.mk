@@ -9,6 +9,10 @@ DTBTOOL := tools/dtbtool/dtbtool
 $(DTBTOOL):
 	make -C tools/dtbtool
 
+MKBOOTFS := tools/mkbootfs/mkbootfs
+$(MKBOOTFS):
+	make -C tools/mkbootfs
+
 BOOT_IMAGE_OUT := arch/arm/boot/boot.img
 KERNEL_IMAGE := arch/arm/boot/zImage
 RAMDISK := boot/ramdisk/initramfs.cpio.gz
@@ -18,6 +22,12 @@ KERNEL_CMDL := 'console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboo
 BOARD_KERNEL_PAGESIZE := 2048
 
 $(KERNEL_IMAGE): zImage
+
+.PHONY: ramdisk
+ramdisk: $(RAMDISK)
+
+$(RAMDISK): $(shell find boot/ramdisk -type f) $(MKBOOTFS)
+	$(MKBOOTFS) boot/ramdisk | gzip -9 -n >$@
 
 .PHONY: dtimage
 dtimage: $(DEVTREE)
